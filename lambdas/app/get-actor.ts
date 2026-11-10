@@ -37,7 +37,7 @@ export const handler = async (
     if (!actorResult.Item) {
       return response(404, { message: `Actor ${actorId} not found` });
     }
-        const actor = toActor(actorResult.Item);
+    const actor = toActor(actorResult.Item);
     if (movieId === undefined) {
       return response(200, { data: actor });
     }
