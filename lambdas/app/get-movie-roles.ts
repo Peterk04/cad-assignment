@@ -21,13 +21,12 @@ export const handler = async (
   if (movieId === undefined) {
     return response(400, { message: "movieID must be a positive integer" });
   }
-  
+
   const actorParam = event.queryStringParameters?.actor;
   const actorId = parseId(actorParam);
   if (actorParam !== undefined && actorId === undefined) {
     return response(400, { message: "actor must be a positive integer" });
   }
-
   try {
     const movieResult = await ddb.send(
       new GetCommand({
