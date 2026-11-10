@@ -29,7 +29,17 @@ export const handler = async (
   }
 
   try {
-        let commandInput: QueryCommandInput = {
+    const movieResult = await ddb.send(
+      new GetCommand({
+        TableName: tableName,
+        Key: { PK: movieKey(movieId), SK: movieKey(movieId) },
+      })
+    );
+    if (!movieResult.Item) {
+      return response(404, { message: `Movie ${movieId} not found` });
+    }
+
+    let commandInput: QueryCommandInput = {
       TableName: tableName,
       KeyConditionExpression: "PK = :pk",
       ExpressionAttributeValues: { ":pk": movieKey(movieId) },
